@@ -1,27 +1,30 @@
 #include "stm32f4xx.h"
 #include "stm32f4xx_hal.h"
-#include "RNG.h"
+#include "I2C.h"
 #include "RCC.h"
+#include "GPIO.h"
 #include <stdint.h>
 
-
-
-void HASH_RNG_IRQHandler(){
-	RNG_reg->RNG_CR &= ~(1<<2);
+void delay(int time){
+	while(time != 0)
+		time--;
 }
 
 int main(void){
 
-	int a = 0;
+	configurePin(GPIO_MODE_ALTFUNC, PIN_6, PORTB);
+	configurePin(GPIO_MODE_ALTFUNC, PIN_7, PORTB);
 
-	unresetEnableRngClock();
-	rngConfigure();
-	rngInterruptConfigure();
+	unresetEnableI2cClock();
+	configureI2C(2);
 
-	HAL_NVIC_EnableIRQ(HASH_RNG_IRQn);
+	configurePinAF(PORTB, PIN_6, AF4);
+	configurePinAF(PORTB, PIN_7, AF4);
 
-	while(1){
-		if(RNG_reg->RNG_SR = 1)
-			a = RNG_reg->RND_DR;
-	}
+		i2cStart(7,1);
+		delay(1000);
+		i2cWriteData(3);
+		delay(1000);
+
+
 }

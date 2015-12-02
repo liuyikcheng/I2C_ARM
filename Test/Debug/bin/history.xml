@@ -1,16 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <history>
-   <processor signature="4.9.3 -mcpu=cortex-m4 -mthumb -g2 -Map=Test.map -O0 --gc-sections -LC:/Users/D203C-01/CoIDE/workspace/I2C -TC:/Users/D203C-01/CoIDE/workspace/I2C/stm32f429zi_flash.ld -g">
-      <target file="Test.elf" lastModified="151473e9b88">
-         <source file="..\obj\stm32f4xx_hal_cortex.o" lastModified="151473e9406"/>
-         <source file="..\obj\RNG.o" lastModified="151473e9609"/>
-         <source file="..\obj\system_stm32f4xx.o" lastModified="151473e9492"/>
-         <source file="..\obj\RCC.o" lastModified="151473e9175"/>
-         <source file="..\obj\stm32f4xx_hal_gpio.o" lastModified="151473e959c"/>
-         <source file="..\obj\startup_stm32f429xx.o" lastModified="151473e91a4"/>
-         <source file="..\obj\stm32f4xx_hal_rng.o" lastModified="151473e8dae"/>
-         <source file="..\obj\stm32f4xx_hal_rcc.o" lastModified="151473e92de"/>
-         <source file="..\obj\main.o" lastModified="151473e908b"/>
+   <processor signature="4.9.3 -mcpu=cortex-m4 -mthumb -g2 -Map=Test.map -O0 --gc-sections -LC:/Users/D203C-01/CoIDE/workspace/I2C_ARM -TC:/Users/D203C-01/CoIDE/workspace/I2C_ARM/stm32f429zi_flash.ld -g">
+      <target file="Test.elf" lastModified="151624cc767">
+         <source file="..\obj\GPIO.o" lastModified="1516204ad63"/>
+         <source file="..\obj\I2C.o" lastModified="151624cc4ea"/>
+         <source file="..\obj\stm32f4xx_hal_cortex.o" lastModified="15161a3c52c"/>
+         <source file="..\obj\stm32f4xx_hal_dma.o" lastModified="15161a3c9b4"/>
+         <source file="..\obj\system_stm32f4xx.o" lastModified="15161a3c5c6"/>
+         <source file="..\obj\RCC.o" lastModified="1516234647d"/>
+         <source file="..\obj\stm32f4xx_hal_gpio.o" lastModified="15161a3c6d9"/>
+         <source file="..\obj\startup_stm32f429xx.o" lastModified="15161a3c14d"/>
+         <source file="..\obj\stm32f4xx_hal_rng.o" lastModified="15161a3be1c"/>
+         <source file="..\obj\stm32f4xx_hal_i2c.o" lastModified="15161a3bd30"/>
+         <source file="..\obj\stm32f4xx_hal_rcc.o" lastModified="15161a3c414"/>
+         <source file="..\obj\main.o" lastModified="151624b1869"/>
       </target>
    </processor>
 </history>

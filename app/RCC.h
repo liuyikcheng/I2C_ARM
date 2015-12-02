@@ -20,7 +20,7 @@ struct RCC_t{
 	uint32_t AHB1ENR;
 	uint32_t AHB2ENR;
 	uint32_t AHB3ENR;
-	uint32_t Reserved4
+	uint32_t Reserved4;
 	uint32_t APB1ENR;
 	uint32_t APB2ENR;
 };

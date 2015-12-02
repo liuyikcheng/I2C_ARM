@@ -22,6 +22,19 @@ struct GPIO_t{
 };
 
 
+
+#define AF0			0
+#define AF1			1
+#define AF2			2
+#define AF3			3
+#define AF4			4
+#define AF5			5
+#define AF6			6
+#define AF7			7
+#define AF8			8
+#define AF9			9
+#define AF10		10
+
 #define PIN_0		0
 #define PIN_1		1
 #define PIN_2		2
