@@ -1,7 +1,7 @@
 #include "GPIO.h"
 #include "stm32f4xx_hal_rcc.h"
 
-void configurePin(int mode, int pinNumber, GPIO *port){
+void configurePin(int mode, int pinNumber, GPIO *port, int pupdr){
 	//GPIO_InitTypeDef gpio;
 	gpioUnresetEnableClock(port);
 
@@ -16,7 +16,7 @@ void configurePin(int mode, int pinNumber, GPIO *port){
 	port->OSPEED &= ~(3 << (pinNumber * 2));
 	port->OSPEED |= GPIO_HIGH_SPEED << (pinNumber * 2);
 	port->PUPDR &= ~(3 << (pinNumber * 2));
-	port->PUPDR |= GPIO_PULL_UP << (pinNumber * 2);
+	port->PUPDR |= pupdr << (pinNumber * 2);
 
 
 }

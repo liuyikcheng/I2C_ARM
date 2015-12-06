@@ -77,7 +77,7 @@ struct GPIO_t{
 #define PORTC	((GPIO *)GPIOC_BASE_ADDRESS)
 #define PORTG	((GPIO *)GPIOG_BASE_ADDRESS)
 
-void configurePin(int mode, int pinNumber, GPIO *port);
+void configurePin(int mode, int pinNumber, GPIO *port, int pupdr);
 void configureInputPin(int pinNumber, GPIO *port, int pupdr);
 void gpioUnresetEnableClock(GPIO *port);
 
