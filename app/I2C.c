@@ -15,10 +15,10 @@ void configureI2C(I2C_REG *i2c_reg){
 	i2c_reg->I2C_CR2 &= ~(63);
 	i2c_reg->I2C_CR2 |= (0x2);		//	set clock freq to 4MHz
 //	i2c_reg->I2C_CR2 |= (1<<10);  	// ITBUFEN buffer interrupt enable
-//	i2c_reg->I2C_CR2 |= (1<<9);  	// ITEVTEN event interrupt enable
-//	i2c_reg->I2C_CR2 |= (1<<8);  	// ITERREN error interrupt enable
+	i2c_reg->I2C_CR2 |= (1<<9);  	// ITEVTEN event interrupt enable
+	i2c_reg->I2C_CR2 |= (1<<8);  	// ITERREN error interrupt enable
 
-	i2c_reg->I2C_CR2 |= (1<<11);	// dma enable
+	//i2c_reg->I2C_CR2 |= (1<<11);	// dma enable
 
 	i2c_reg->I2C_CCR &= ~(1<<15);	// standard mode
 	i2c_reg->I2C_CCR &= ~(4095);
@@ -31,7 +31,7 @@ void configureI2C(I2C_REG *i2c_reg){
 	i2c_reg->I2C_FLTR &= ~(15);
 	i2c_reg->I2C_FLTR |= (1);
 
-	i2c_reg->I2C_CR1 |= 1;  		//	peripheral enable
+	i2c_reg->I2C_CR1 |= 1;		//	peripheral enable
 	i2c_reg->I2C_CR1 |= (1<<10);	//	acknowledge enable
 	a = i2c_reg->I2C_CR1;
 	a = i2c_reg->I2C_OAR1;
@@ -97,8 +97,9 @@ uint8_t i2cReadData(I2C_REG *i2c_reg){
 void generateStart(I2C_REG *i2c_reg){
 
 	i2c_reg->I2C_CR1 |= (1<<8);
-
+	i2c_reg->I2C_CR2 |= (1<<11);
 	while(status1(i2c_reg, SB) == 0); //start bit was sent
+
 }
 
 void sendHeaderForReceive(I2C_REG *i2c_reg, int address){
@@ -110,7 +111,7 @@ void sendHeaderForReceive(I2C_REG *i2c_reg, int address){
 
 //select the address and decide write or read
 void sendAddress(I2C_REG *i2c_reg, int address, int addressMode, int rw){
-
+	int c, d;
 	if (addressMode == ADDRESS_10_BIT_MODE){
 		int most2Bit = (address>>6);
 		int header = (0xF0|(most2Bit<<2));
@@ -129,8 +130,19 @@ void sendAddress(I2C_REG *i2c_reg, int address, int addressMode, int rw){
 	}
 	else{
 		int slaveAddress = ((address<<1)|rw);
-		i2c_reg->I2C_DR = slaveAddress;
-		while(status1(i2c_reg, ADDR) == 0);
+		if(status1(i2c_reg, ADDR) == 1){
+			i2c_reg->I2C_DR = 0x69;
+			uint32_t a = i2c_reg->I2C_SR1;
+			uint32_t b = i2c_reg->I2C_SR2;
+			uint32_t c = I2C_reg->I2C_SR1;
+			uint32_t d = I2C_reg->I2C_SR2;
+		}
+		else {
+			i2c_reg->I2C_DR = slaveAddress;
+			while(status1(i2c_reg, BTF) == 0);
+		}
+
+
 	}
 }
 

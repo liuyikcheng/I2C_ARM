@@ -1,5 +1,4 @@
 #include "GPIO.h"
-#include "stm32f4xx_hal_rcc.h"
 
 void configurePin(int mode, int pinNumber, GPIO *port, int pupdr){
 	//GPIO_InitTypeDef gpio;

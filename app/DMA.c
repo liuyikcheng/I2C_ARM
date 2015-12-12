@@ -32,7 +32,7 @@ void configDMAM2M(DMA_reg *dma, int channel, int direction) {  // stream 7  chan
 	 dma->S4.CR |= (DMA_MemoryInc_Enable << MINC);
 
 	 dma->S4.CR &= ~(1 << PINC);
-	 dma->S4.CR |= (DMA_PeripheralInc_Enable << PINC);
+	 dma->S4.CR |= (DMA_PeripheralInc_Disable << PINC);
 
 	 dma->S4.CR &= ~(2 << 23);
 	 dma->S4.CR |= (DMA_MemoryBurst_Single << 23);
@@ -66,16 +66,14 @@ void DMA_memcpy8(DMA_reg *dma, uint32_t pSrcAddr, uint32_t pDstAddr, unsigned in
 		dma->S4.CR &= ~( 1 << EN );  					// 1. If stream is enabled, disable it
          while( (  dma->S4.CR & ( 1 << EN ) == 1) );
     }
-	dma->S4.PAR =  (uint32_t)pSrcAddr;					/* source address */
-	dma->S4.M0AR = (uint32_t)pDstAddr; 					/* destination address */
+	dma->S4.PAR =  (uint32_t)pDstAddr;					/* source address */
+	dma->S4.M0AR = (uint32_t)pSrcAddr; 					/* destination address */
 	dma->S4.NDTR = uSize;     							// Number of data items to transfer
     read =  dma->S4.CR;
 }
 
 void enableDMA(DMA_reg *dma){
 	uint32_t stream2, stream3;
-	 dma->S4.CR &= ~1;
-	stream2 =  dma->S4.CR;
 	 dma->S4.CR |= 1;     						// Stream Enable
 	stream3 =  dma->S4.CR;
 

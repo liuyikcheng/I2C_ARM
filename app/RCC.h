@@ -1,7 +1,10 @@
 #ifndef __RCC_H__
 #define __RCC_H__
+
+
 #include "GPIO.h"
-#include "stm32f4xx_hal_gpio.h"
+#include <stdint.h>
+
 
 typedef struct RCC_t RCC_REG;
 struct RCC_t{
@@ -25,8 +28,8 @@ struct RCC_t{
 	uint32_t APB2ENR;
 };
 
+#include "Register.h"
 
-#define RCC_REG_ADDRESS		0x40023800
 
 #define RCC_reg		((RCC_REG *)RCC_REG_ADDRESS)
 

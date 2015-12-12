@@ -84,13 +84,13 @@
     <File name="Core/core_cmSimd.h" path="../STM32Cube_FW_F4_V1.5.0/Drivers/CMSIS/Include/core_cmSimd.h" type="1"/>
     <File name="Hardware/stm32f4xx_hal_dma.c" path="../STM32Cube_FW_F4_V1.5.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c" type="1"/>
     <File name="Config/system_stm32f4xx.h" path="app/system_stm32f4xx.h" type="1"/>
+    <File name="Register.h" path="app/Register.h" type="1"/>
     <File name="Config/stm32f4xx.h" path="app/stm32f4xx.h" type="1"/>
     <File name="Core/core_cmInstr.h" path="../STM32Cube_FW_F4_V1.5.0/Drivers/CMSIS/Include/core_cmInstr.h" type="1"/>
     <File name="Config/system_stm32f4xx.c" path="app/system_stm32f4xx.c" type="1"/>
-    <File name="I2C.h" path="app/I2C.h" type="1"/>
     <File name="RCC.c" path="app/RCC.c" type="1"/>
+    <File name="I2C.h" path="app/I2C.h" type="1"/>
     <File name="Config/stm32f4xx_hal_conf.h" path="app/stm32f4xx_hal_conf.h" type="1"/>
-    <File name="Hardware/stm32f4xx_hal_gpio.c" path="../STM32Cube_FW_F4_V1.5.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c" type="1"/>
     <File name="Core/core_cm4.h" path="../STM32Cube_FW_F4_V1.5.0/Drivers/CMSIS/Include/core_cm4.h" type="1"/>
     <File name="Hardware/stm32_hal_legacy.h" path="../STM32Cube_FW_F4_V1.5.0/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h" type="1"/>
     <File name="DMA.h" path="app/DMA.h" type="1"/>
@@ -99,7 +99,6 @@
     <File name="Hardware/stm32f4xx_hal_def.h" path="../STM32Cube_FW_F4_V1.5.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h" type="1"/>
     <File name="Hardware/stm32f4xx_hal_dcmi_ex.h" path="../STM32Cube_FW_F4_V1.5.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dcmi_ex.h" type="1"/>
     <File name="Hardware/stm32f4xx_hal_i2c.c" path="../STM32Cube_FW_F4_V1.5.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c" type="1"/>
-    <File name="Hardware/stm32f4xx_hal_gpio.h" path="../STM32Cube_FW_F4_V1.5.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h" type="1"/>
     <File name="Hardware/stm32f4xx_hal_rcc.c" path="../STM32Cube_FW_F4_V1.5.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c" type="1"/>
     <File name="Hardware/stm32f4xx_hal_rng.h" path="../STM32Cube_FW_F4_V1.5.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rng.h" type="1"/>
     <File name="GPIO.h" path="app/GPIO.h" type="1"/>
