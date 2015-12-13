@@ -28,6 +28,32 @@ struct I2C_t{
 #define I2C2_reg	((I2C_REG *)I2C2_REG_ADDRESS)
 #define I2C3_reg	((I2C_REG *)I2C3_REG_ADDRESS)
 
+/********** control register 1 **********/
+#define PE			0
+#define SMBUS		1
+//RESERVED			2
+#define SMBTYPE		3
+#define ENARP		4
+#define	ENPEC		5
+#define ENGC		6
+#define NOSTRETCH	7
+#define START		8
+#define STOP		9
+#define ACK			10
+#define POS			11
+#define PEC			12
+#define ALERT		13
+//RESERVED			14
+#define SWRST		15
+
+/********** control register 2 **********/
+#define ITERREN		8
+#define ITEVTEN		9
+#define ITBUFEN		10
+#define DMAEN		11
+#define LAST		12
+
+/********** status register 1 **********/
 #define SB		0
 #define ADDR	1
 #define BTF		2
@@ -37,6 +63,7 @@ struct I2C_t{
 #define RxNE	6
 #define TxE		7
 
+/********** status register 2 **********/
 #define	MSL		0
 #define	BUSY	1
 #define TRA		2
@@ -51,8 +78,6 @@ struct I2C_t{
 void configureI2cAddress(I2C_REG *i2c_reg, int ownAddress, int addr10Bit);
 
 void configureI2C(I2C_REG *i2c_reg);
-
-void i2cStart(int address, int rw, I2C_REG *i2c_reg);
 
 void generateStart(I2C_REG *i2c_reg);
 

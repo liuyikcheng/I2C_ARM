@@ -53,55 +53,13 @@ void configureI2cAddress(I2C_REG *i2c_reg, int ownAddress, int addr10Bit){
 
 }
 
-//To generate start bit and select an address and determine whether write or read data
-void i2cStart(int address, int rw, I2C_REG *i2c_reg){
-
-	int a, b, c, d, e, f;
-
-    // wait until I2C1 is not busy anymore
-    while ((i2c_reg->I2C_SR2)&2 != 0);
-
-    // Send I2C1 START condition
-	i2c_reg->I2C_CR1 |= (1<<8);
-
-	if((i2c_reg->I2C_SR1)&1 == 1){// if start bit was sent (master)
-		a = 0;
-	//	i2c_reg->I2C_DR = ((address<<1)|rw); // rw = 0 send data, rw = 1 receive data
-	}
-
-    // Send slave Address for write/read
-
-	i2c_reg->I2C_DR = ((address<<1)|rw); // rw = 0 send data, rw = 1 receive data
-
-//	while(((I2C_reg->I2C_SR1>>8)&1) == 1){
-	//	I2C_reg->I2C_SR1 &= ~(1<<8); //clrea BERR bit
-	//	i2c_reg->I2C_DR = ((address<<1)|rw); // rw = 0 send data, rw = 1 receive data
-//	}
-
-
-	c = i2c_reg->I2C_SR1;
-	b = i2c_reg->I2C_SR2;
-	d = I2C_reg->I2C_SR1;
-	e = I2C_reg->I2C_SR2;
-
-	a = i2c_reg->I2C_DR;
-
-    //EV6
-	//while((i2c_reg->I2C_SR1>>1)&1 == 0);//if address was sent (master)
-
-
-    //EV8_1
-    //while((i2c_reg->I2C_SR1)&0x80 == 1); //wait for data write to DR
-
-}
-
-
-
 // read data from status register 1
 int status1(I2C_REG *i2c_reg, int bit){
 	uint32_t stat = ((i2c_reg->I2C_SR1>>bit)&1);
 	uint32_t a = i2c_reg->I2C_SR1;
 	uint32_t b = i2c_reg->I2C_SR2;
+	uint32_t c = I2C_reg->I2C_SR1;
+	uint32_t d = I2C_reg->I2C_SR2;
 	return stat;
 }
 
