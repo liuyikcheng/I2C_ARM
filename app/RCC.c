@@ -10,6 +10,13 @@ void gpioUnresetEnableClock(GPIO *port){
 
 void unresetEnableI2cClock(){
 
-	RCC_reg->APB1RSTR &= ~(1<<21);
+	RCC_reg->APB1RSTR &= ~(1<<21); //unreset enable I2C1
 	RCC_reg->APB1ENR |= (1<<21);
+
+	RCC_reg->APB1RSTR &= ~(1<<22); //unreset enable I2C2
+	RCC_reg->APB1ENR |= (1<<22);
+
+	RCC_reg->APB1RSTR &= ~(1<<23); //unreset enable I2C3
+	RCC_reg->APB1ENR |= (1<<23);
+
 }

@@ -68,6 +68,7 @@ struct GPIO_t{
 #define GPIO_RESERVED			3
 
 #define GPIOG_BASE_ADDRESS	0x40021800
+#define GPIOF_BASE_ADDRESS	0x40021400
 #define GPIOC_BASE_ADDRESS	0x40020800
 #define GPIOB_BASE_ADDRESS	0x40020400
 #define GPIOA_BASE_ADDRESS  0x40020000
@@ -75,13 +76,14 @@ struct GPIO_t{
 #define PORTA	((GPIO *)GPIOA_BASE_ADDRESS)
 #define PORTB	((GPIO *)GPIOB_BASE_ADDRESS)
 #define PORTC	((GPIO *)GPIOC_BASE_ADDRESS)
+#define PORTF	((GPIO *)GPIOF_BASE_ADDRESS)
 #define PORTG	((GPIO *)GPIOG_BASE_ADDRESS)
 
 void configurePin(int mode, int pinNumber, GPIO *port, int pupdr);
 void configureInputPin(int pinNumber, GPIO *port, int pupdr);
 void gpioUnresetEnableClock(GPIO *port);
+void configurePinAFRL(GPIO *port, int pinNumber, int af);
+void configurePinAFRH(GPIO *port, int pinNumber, int af);
 
-void writeOne(uint16_t pinNumber, GPIO_TypeDef *port);
-void writeZero(uint16_t pinNumber, GPIO_TypeDef *port);
 
 #endif // __GPIO_H__

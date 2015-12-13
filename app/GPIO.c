@@ -21,10 +21,16 @@ void configurePin(int mode, int pinNumber, GPIO *port, int pupdr){
 
 }
 
-void configurePinAF(GPIO *port, int pinNumber, int af){
+void configurePinAFRL(GPIO *port, int pinNumber, int af){
 
 	port->AFRL &= ~(15 << (pinNumber * 4));
 	port->AFRL |=  af << (pinNumber * 4);
+}
+
+void configurePinAFRH(GPIO *port, int pinNumber, int af){
+
+	port->AFRH &= ~(15 << ((pinNumber-8) * 4));
+	port->AFRH |=  af << ((pinNumber-8) * 4);
 }
 
 void configureInputPin(int pinNumber, GPIO *port, int pupdr){
@@ -40,16 +46,4 @@ void configureInputPin(int pinNumber, GPIO *port, int pupdr){
 
 }
 
-void writeOne(uint16_t pinNumber, GPIO_TypeDef *port){
-//	HAL_GPIO_WritePin(port, pinNumber, GPIO_PIN_SET);
-//	port->ODR |= (1 << (pinNumber));
-	port->BSRR = (1 << pinNumber);
-
-}
-
-void writeZero(uint16_t pinNumber, GPIO_TypeDef *port){
-//	HAL_GPIO_WritePin(port, pinNumber, GPIO_PIN_RESET);
-//	port->ODR &= ~(1 << (pinNumber));
-	port->BSRR = (1 << (pinNumber+16));
-}
 
