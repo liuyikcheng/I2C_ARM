@@ -3,9 +3,12 @@
 #include "I2C.h"
 #include "RCC.h"
 #include "GPIO.h"
+#include "DMA.h"
 #include <stdint.h>
 
 #define I2C1_OWNADDRESS		0x26F
+
+uint32_t buffer[256];
 
 void I2C1_EV_IRQHandler(void){
 
@@ -46,21 +49,29 @@ int main(void){
 	configurePin(GPIO_MODE_ALTFUNC, PIN_8, PORTA, GPIO_NO_PULL_UP_DOWN); //PA8 as SCL for I2C3
 	configurePin(GPIO_MODE_ALTFUNC, PIN_9, PORTC, GPIO_NO_PULL_UP_DOWN); //PC9 as SDA for I2C3
 
+	configDMAM2M(dma2, channel3, P2M);
+
+	DMA_memcpy8(dma2,&(I2C3_reg->I2C_DR),buffer,2);
+
+
+
 	unresetEnableI2cClock();
 
 	configureI2cAddress(I2C_reg, I2C1_OWNADDRESS, ADDRESS_10_BIT_MODE);
 
 	configureI2C(I2C_reg);
 	configureI2C(I2C3_reg);
-
+	enableDMA(dma2);
+	a = dma2->S4.CR;
 	configurePinAFRL(PORTB, PIN_6, AF4);
 	configurePinAFRL(PORTB, PIN_7, AF4);
 	configurePinAFRH(PORTA, PIN_8, AF4);
 	configurePinAFRH(PORTC, PIN_9, AF4);
 
+	//configuration of DMA
+	//configDMAM2M(dma2->S2, channel3, P2M);
 
-		//while(1){
-
+/**********
 			generateStart(I2C3_reg);
 
 			sendAddress(I2C3_reg, I2C1_OWNADDRESS, ADDRESS_10_BIT_MODE, MASTER_TRANSMIT);
@@ -90,6 +101,12 @@ int main(void){
 			d = I2C_reg->I2C_SR1;
 
 			while(1);
-		//}
+***************/
 
+//	i2cWriteData(0x21, I2C3_reg);
+	I2C3_reg->I2C_DR = 0x21;
+	data = buffer[0];
+//	i2cWriteData(0x9, I2C3_reg);
+	I2C3_reg->I2C_DR = 0x9;
+	data = buffer[1];
 }

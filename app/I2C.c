@@ -18,6 +18,8 @@ void configureI2C(I2C_REG *i2c_reg){
 	i2c_reg->I2C_CR2 |= (1<<9);  	// ITEVTEN event interrupt enable
 	i2c_reg->I2C_CR2 |= (1<<8);  	// ITERREN error interrupt enable
 
+	i2c_reg->I2C_CR2 |= (1<<11);	// dma enable
+
 	i2c_reg->I2C_CCR &= ~(1<<15);	// standard mode
 	i2c_reg->I2C_CCR &= ~(4095);
 	i2c_reg->I2C_CCR |= 0x100;		// Clock control register in Fm/Sm mode as
@@ -34,6 +36,10 @@ void configureI2C(I2C_REG *i2c_reg){
 	a = i2c_reg->I2C_CR1;
 	a = i2c_reg->I2C_OAR1;
 
+}
+
+void configureI2C_DMAenable(I2C_REG *i2c_reg){
+	i2c_reg->I2C_CR2 |= (1<<11);
 }
 
 void configureI2cAddress(I2C_REG *i2c_reg, int ownAddress, int addr10Bit){

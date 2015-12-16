@@ -1,6 +1,6 @@
 #ifndef __RCC_H__
 #define __RCC_H__
-
+#include "GPIO.h"
 #include "stm32f4xx_hal_gpio.h"
 
 typedef struct RCC_t RCC_REG;
@@ -30,6 +30,11 @@ struct RCC_t{
 
 #define RCC_reg		((RCC_REG *)RCC_REG_ADDRESS)
 
-void unresetEnableRngClock();
+void gpioUnresetEnableClock(GPIO *port);
+
+void unresetEnableI2cClock();
+
+void DMAUnresetEnableClock();
+
 
 #endif // __RCC_H__

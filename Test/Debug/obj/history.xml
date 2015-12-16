@@ -1,41 +1,44 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <history>
    <processor signature="arm-none-eabi-gcc 4.8.1 mingw32 -mcpu=cortex-m4 -mthumb -g2 -Wall -O0 -c -DSTM32F429ZI -DSTM32F429xx -DSTM32F429_439xx -I..\..\..\..\..\..\..\CoIDE\workspace -I..\..\..\..\..\..\..\CoIDE\workspace\STM32Cube_FW_F4_V1.5.0\Drivers\CMSIS\Include -I..\..\..\..\..\..\..\CoIDE\workspace\I2C_ARM\app -I..\..\..\..\..\..\..\CoIDE\workspace\I2C_ARM -I..\..\..\..\..\..\..\CoIDE\workspace\STM32Cube_FW_F4_V1.5.0\Drivers\STM32F4xx_HAL_Driver -I..\..\..\..\..\..\..\CoIDE\workspace\STM32Cube_FW_F4_V1.5.0\Drivers\CMSIS -I..\..\..\..\..\..\..\CoIDE\workspace\STM32Cube_FW_F4_V1.5.0\Drivers -I..\..\..\..\..\..\..\CoIDE\workspace\STM32Cube_FW_F4_V1.5.0\Drivers\STM32F4xx_HAL_Driver\Inc -I..\..\..\..\..\..\..\CoIDE\workspace\STM32Cube_FW_F4_V1.5.0\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy">
-      <target file="RCC.o" lastModified="15195858297">
-         <source file="..\..\..\app\RCC.c" lastModified="15185590894"/>
+      <target file="RCC.o" lastModified="151aa55a213">
+         <source file="..\..\..\app\RCC.c" lastModified="151aa556588"/>
       </target>
-      <target file="stm32f4xx_hal_rcc.o" lastModified="151958585d3">
+      <target file="stm32f4xx_hal_rcc.o" lastModified="151aa0f3b11">
          <source file="..\..\..\..\STM32Cube_FW_F4_V1.5.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c" lastModified="14c0ebff760"/>
       </target>
-      <target file="stm32f4xx_hal_rng.o" lastModified="151958580f7">
+      <target file="stm32f4xx_hal_rng.o" lastModified="151aa0f30a9">
          <source file="..\..\..\..\STM32Cube_FW_F4_V1.5.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rng.c" lastModified="14c0ebff760"/>
       </target>
-      <target file="I2C.o" lastModified="1519a687626">
-         <source file="..\..\..\app\I2C.c" lastModified="1519a67e390"/>
+      <target file="DMA.o" lastModified="151aa68c5da">
+         <source file="..\..\..\app\DMA.c" lastModified="151aa68aeda"/>
       </target>
-      <target file="stm32f4xx_hal_dma.o" lastModified="15195858b7d">
+      <target file="I2C.o" lastModified="151aa35aed1">
+         <source file="..\..\..\app\I2C.c" lastModified="151aa3463e2"/>
+      </target>
+      <target file="stm32f4xx_hal_dma.o" lastModified="151aa0f43b4">
          <source file="..\..\..\..\STM32Cube_FW_F4_V1.5.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c" lastModified="14c0ebff760"/>
       </target>
-      <target file="system_stm32f4xx.o" lastModified="15195858789">
-         <source file="..\..\..\app\system_stm32f4xx.c" lastModified="151616045b0"/>
+      <target file="system_stm32f4xx.o" lastModified="151aa0f3dde">
+         <source file="..\..\..\app\system_stm32f4xx.c" lastModified="151a8fb933e"/>
       </target>
-      <target file="startup_stm32f429xx.o" lastModified="15195858386">
-         <source file="..\..\..\app\startup_stm32f429xx.s" lastModified="151616045b0"/>
+      <target file="startup_stm32f429xx.o" lastModified="151aa0f36d7">
+         <source file="..\..\..\app\startup_stm32f429xx.s" lastModified="151a8fb932c"/>
       </target>
-      <target file="stm32f4xx_hal_cortex.o" lastModified="151958586f4">
+      <target file="stm32f4xx_hal_cortex.o" lastModified="151aa0f3cb1">
          <source file="..\..\..\..\STM32Cube_FW_F4_V1.5.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c" lastModified="14c0ebff760"/>
       </target>
-      <target file="main.o" lastModified="1519a697cf2">
-         <source file="..\..\..\app\main.c" lastModified="1519a6974a2"/>
+      <target file="main.o" lastModified="151aa6b0990">
+         <source file="..\..\..\app\main.c" lastModified="151aa696ed3"/>
       </target>
-      <target file="stm32f4xx_hal_i2c.o" lastModified="15195857ffb">
+      <target file="stm32f4xx_hal_i2c.o" lastModified="151aa0f2d65">
          <source file="..\..\..\..\STM32Cube_FW_F4_V1.5.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c.c" lastModified="14c0ebff760"/>
       </target>
-      <target file="stm32f4xx_hal_gpio.o" lastModified="15195858891">
+      <target file="stm32f4xx_hal_gpio.o" lastModified="151aa0f404f">
          <source file="..\..\..\..\STM32Cube_FW_F4_V1.5.0\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c" lastModified="14c0ebff760"/>
       </target>
-      <target file="GPIO.o" lastModified="15195858357">
-         <source file="..\..\..\app\GPIO.c" lastModified="15185778715"/>
+      <target file="GPIO.o" lastModified="151aa0f35ff">
+         <source file="..\..\..\app\GPIO.c" lastModified="151a8fb9301"/>
       </target>
    </processor>
 </history>

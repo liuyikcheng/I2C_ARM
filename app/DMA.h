@@ -114,10 +114,10 @@ typedef enum {FAILED = 0,
 #define ARRAYSIZE 800
 #define DMA_STREAM_IRQHANDLER    DMA2_Stream0_IRQHandler
 
-void configDMAM2M();
-void DMA_memcpy8( uint32_t pDstAddr, uint32_t pSrcAddr, unsigned int uSize );
-void enableDMA();
-void DMA_interruptTransfer();
+void configDMAM2M(DMA_reg *dma, int channel, int direction);
+void DMA_memcpy8(DMA_reg *dma, uint32_t pDstAddr, uint32_t pSrcAddr, unsigned int uSize );
+void enableDMA(DMA_reg *dma);
+void DMA_interruptTransfer(DMA_reg *dma);
 //int* getSourceData();
 //int* getDestinationData();
 //TestStatus Buffercmp(const uint32_t* pBuffer, uint32_t* pBuffer1, uint16_t BufferLength);

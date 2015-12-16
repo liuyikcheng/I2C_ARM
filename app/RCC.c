@@ -1,5 +1,5 @@
 #include "RCC.h"
-#include "GPIO.h"
+
 
 
 void gpioUnresetEnableClock(GPIO *port){
@@ -18,5 +18,15 @@ void unresetEnableI2cClock(){
 
 	RCC_reg->APB1RSTR &= ~(1<<23); //unreset enable I2C3
 	RCC_reg->APB1ENR |= (1<<23);
+	uint32_t data1 = RCC_reg->APB1ENR ;
 
+}
+
+void DMAUnresetEnableClock(){
+	//only DMA2 streams are able to perform memory-to-memory transfers
+
+	RCC_reg->AHB1RSTR  &= ~(1 << 22); 	//DMA2RST
+	uint32_t data = RCC_reg->AHB1RSTR ;
+	RCC_reg->AHB1ENR  |= (1 << 22);		//DMA2EN	Clock the DMA2 for configuration change
+	uint32_t data1 = RCC_reg->AHB1ENR ;
 }
