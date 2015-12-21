@@ -14,9 +14,9 @@ void configureI2C(I2C_REG *i2c_reg){
 */
 	i2c_reg->I2C_CR2 &= ~(63);
 	i2c_reg->I2C_CR2 |= (0x2);		//	set clock freq to 4MHz
-	i2c_reg->I2C_CR2 |= (1<<10);  	// ITBUFEN buffer interrupt enable
-	i2c_reg->I2C_CR2 |= (1<<9);  	// ITEVTEN event interrupt enable
-	i2c_reg->I2C_CR2 |= (1<<8);  	// ITERREN error interrupt enable
+//	i2c_reg->I2C_CR2 |= (1<<10);  	// ITBUFEN buffer interrupt enable
+//	i2c_reg->I2C_CR2 |= (1<<9);  	// ITEVTEN event interrupt enable
+//	i2c_reg->I2C_CR2 |= (1<<8);  	// ITERREN error interrupt enable
 
 	i2c_reg->I2C_CR2 |= (1<<11);	// dma enable
 

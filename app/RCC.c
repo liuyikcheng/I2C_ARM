@@ -25,8 +25,8 @@ void unresetEnableI2cClock(){
 void DMAUnresetEnableClock(){
 	//only DMA2 streams are able to perform memory-to-memory transfers
 
-	RCC_reg->AHB1RSTR  &= ~(1 << 22); 	//DMA2RST
+	RCC_reg->AHB1RSTR  &= ~(1 << 21); 	//DMA1RST
 	uint32_t data = RCC_reg->AHB1RSTR ;
-	RCC_reg->AHB1ENR  |= (1 << 22);		//DMA2EN	Clock the DMA2 for configuration change
+	RCC_reg->AHB1ENR  |= (1 << 21);		//DMA1EN	Clock the DMA1 for configuration change
 	uint32_t data1 = RCC_reg->AHB1ENR ;
 }

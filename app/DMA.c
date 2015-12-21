@@ -17,14 +17,14 @@ void configDMAM2M(DMA_reg *dma, int channel, int direction) {  // stream 7  chan
 	 dma->S4.CR &=  ~(3 << 25);
 	 dma->S4.CR |= (channel << 25);  					/* CHANNEL */
 
-	 dma->S4.CR &= ~(2 << 6);
+	 dma->S4.CR &= ~(3 << 6);
 	 dma->S4.CR |= (direction << 6 );      					/* DIRECTION TRANSFER MODE M2M */
 
 	//source and destination data size word=32bit
-	 dma->S4.CR &= ~(2 << 13);							/* DMA_MemoryDataSize_Word */
+	 dma->S4.CR &= ~(3 << 13);							/* DMA_MemoryDataSize_Word */
 	 dma->S4.CR |= (DMA_MemoryDataSize_byte << 13);
 
-	 dma->S4.CR &= ~(2 << 11);							/* DMA_PeripheralDataSize_Word */
+	 dma->S4.CR &= ~(3 << 11);							/* DMA_PeripheralDataSize_Word */
 	 dma->S4.CR |= (DMA_PeripheralDataSize_byte << 11);
 
 	//MEMORY AND PERIPHERAL increment disable
@@ -50,7 +50,7 @@ void configDMAM2M(DMA_reg *dma, int channel, int direction) {  // stream 7  chan
 	int dma5 =  dma->S4.FCR;
 
 	 dma->S4.CR &= ~(15 << 1);
-	 dma->S4.CR |= (15 << 1);							// enable all interrupt(TC, HT, TE) and EN bit
+//	 dma->S4.CR |= (15 << 1);							// enable all interrupt(TC, HT, TE) and EN bit
 	 uint32_t dataIn = dma->S4.CR;
 }
 
@@ -59,7 +59,7 @@ void DMA_interruptTransfer(DMA_reg *dma){
 	dma->S4.CR |= (3 <<  9);
 }
 
-void DMA_memcpy8(DMA_reg *dma, uint32_t pDstAddr, uint32_t pSrcAddr, unsigned int uSize ){
+void DMA_memcpy8(DMA_reg *dma, uint32_t pSrcAddr, uint32_t pDstAddr, unsigned int uSize ){
     														/* As per page 233 this is how to configure a stream */
 	uint32_t read ;
 	if( (  dma->S4.CR & ( 1 << EN ) ) == 1 ){

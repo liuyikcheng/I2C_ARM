@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Project version="2G - 2.0.2" name="Test">
   <Target name="Test" isCurrent="1">
-    <Device manufacturerId="9" manufacturerName="ST" chipId="287" chipName="STM32F429ZI" boardId="" boardName="" boardUrl="" coreId="4" coreName="Cortex M4"/>
+    <Device manufacturerId="9" manufacturerName="ST" chipId="287" chipName="STM32F429ZI" boardId="" boardName="" coreId="4" coreName="Cortex M4"/>
     <BuildOption>
       <Compile>
         <Option name="OptimizationLevel" value="0"/>
@@ -71,18 +71,18 @@
   <Components path="./"/>
   <LocalComponents/>
   <Files>
-    <File name="Hardware" path="" type="2"/>
     <File name="GPIO.c" path="app/GPIO.c" type="1"/>
-    <File name="DMA.c" path="app/DMA.c" type="1"/>
+    <File name="Hardware" path="" type="2"/>
     <File name="Hardware/stm32f4xx_hal.h" path="../STM32Cube_FW_F4_V1.5.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h" type="1"/>
+    <File name="DMA.c" path="app/DMA.c" type="1"/>
     <File name="I2C.c" path="app/I2C.c" type="1"/>
     <File name="Core/core_cmFunc.h" path="../STM32Cube_FW_F4_V1.5.0/Drivers/CMSIS/Include/core_cmFunc.h" type="1"/>
     <File name="Config/stm32f429xx.h" path="app/stm32f429xx.h" type="1"/>
     <File name="Hardware/stm32f4xx_hal_cortex.c" path="../STM32Cube_FW_F4_V1.5.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c" type="1"/>
     <File name="RCC.h" path="app/RCC.h" type="1"/>
     <File name="Hardware/stm32f4xx_hal_i2c.h" path="../STM32Cube_FW_F4_V1.5.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c.h" type="1"/>
-    <File name="Hardware/stm32f4xx_hal_dma.c" path="../STM32Cube_FW_F4_V1.5.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c" type="1"/>
     <File name="Core/core_cmSimd.h" path="../STM32Cube_FW_F4_V1.5.0/Drivers/CMSIS/Include/core_cmSimd.h" type="1"/>
+    <File name="Hardware/stm32f4xx_hal_dma.c" path="../STM32Cube_FW_F4_V1.5.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c" type="1"/>
     <File name="Config/system_stm32f4xx.h" path="app/system_stm32f4xx.h" type="1"/>
     <File name="Config/stm32f4xx.h" path="app/stm32f4xx.h" type="1"/>
     <File name="Core/core_cmInstr.h" path="../STM32Cube_FW_F4_V1.5.0/Drivers/CMSIS/Include/core_cmInstr.h" type="1"/>
