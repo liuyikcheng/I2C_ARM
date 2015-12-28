@@ -50,9 +50,9 @@ int main(void){
 	configurePin(GPIO_MODE_ALTFUNC, PIN_8, PORTA, GPIO_NO_PULL_UP_DOWN); //PA8 as SCL for I2C3
 	configurePin(GPIO_MODE_ALTFUNC, PIN_9, PORTC, GPIO_NO_PULL_UP_DOWN); //PC9 as SDA for I2C3
 
-	configDMAM2M(dma1, channel3, M2P);
+	configDMA(dma1, channel3, M2P);
 	DMA_interruptTransfer(dma1);
-	DMA_memcpy8(dma1,buffer,&(I2C3_reg->I2C_DR),2);
+	dmaForI2C(dma1,buffer,&(I2C3_reg->I2C_DR),2);
 
 	unresetEnableI2cClock();
 
