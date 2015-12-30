@@ -8,8 +8,8 @@
 
 #define I2C1_OWNADDRESS		0x10
 
-uint8_t buffer[] = {23,12};
-
+uint8_t buffer[] = "ABC";
+uint8_t receiveBuffer[100];
 
 void I2C1_EV_IRQHandler(void){
 
@@ -32,6 +32,39 @@ void I2C1_EV_IRQHandler(void){
 
 }
 
+void DMA1_Stream4_IRQHandler(void){
+
+	int flag = dma1->HISR;
+	int data = I2C_reg->I2C_DR;
+	data = I2C3_reg->I2C_SR1;
+	data = I2C3_reg->I2C_SR2;
+			data = I2C_reg->I2C_SR1;
+			data = I2C_reg->I2C_SR2;
+	if ((((flag>>5)&1) == 1)&&(((flag>>4)&1) == 1)){
+		dma1->HIFCR |= (1<<5);
+		dma1->HIFCR |= (1<<4);
+		flag = dma1->HISR;
+	}
+
+}
+
+void DMA1_Stream5_IRQHandler(void){
+
+	int flag = dma1->HISR;
+	int data = receiveBuffer[0];
+		data = I2C_reg->I2C_SR1;
+		data = I2C_reg->I2C_SR2;
+		data = I2C_reg->I2C_DR;
+
+	if ((((flag>>11)&1) == 1)&&(((flag>>10)&1) == 1)){
+		dma1->HIFCR |= (1<<11);
+		dma1->HIFCR |= (1<<10);
+		data = I2C_reg->I2C_DR;
+		//i2cStop(I2C3_reg);
+	}
+
+}
+
 void delay(int time){
 	while(time != 0)
 		time--;
@@ -42,6 +75,8 @@ int main(void){
 	int a, b, c, d, e, f, data;
 
 //	HAL_NVIC_EnableIRQ(I2C1_EV_IRQn);
+//	HAL_NVIC_EnableIRQ(DMA1_Stream4_IRQn);
+//	HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
 //GPIO_NO_PULL_UP_DOWN GPIO_PULL_UP
 
 	configurePin(GPIO_MODE_ALTFUNC, PIN_6, PORTB, GPIO_NO_PULL_UP_DOWN); //PB6 as SCL for I2C1
@@ -50,9 +85,18 @@ int main(void){
 	configurePin(GPIO_MODE_ALTFUNC, PIN_8, PORTA, GPIO_NO_PULL_UP_DOWN); //PA8 as SCL for I2C3
 	configurePin(GPIO_MODE_ALTFUNC, PIN_9, PORTC, GPIO_NO_PULL_UP_DOWN); //PC9 as SDA for I2C3
 
-	configDMA(dma1, channel3, M2P);
-	DMA_interruptTransfer(dma1);
-	dmaForI2C(dma1,buffer,&(I2C3_reg->I2C_DR),2);
+	configDMAstream(&(dma1->S4), channel3, M2P);
+	configDMAstream(&(dma1->S5), channel1, P2M);
+
+	b = dma1->S4.CR;
+	a = dma1->S5.CR;
+
+	DMA_interruptTransfer(&(dma1->S4));
+	DMA_interruptTransfer(&(dma1->S5));
+
+
+	connectDMAnI2C(&(dma1->S4), buffer, &(I2C3_reg->I2C_DR), 3);
+	connectDMAnI2C(&(dma1->S5), receiveBuffer, &(I2C_reg->I2C_DR), 3);
 
 	unresetEnableI2cClock();
 
@@ -64,32 +108,40 @@ int main(void){
 	configurePinAFRH(PORTC, PIN_9, AF4);
 
 	I2C3_reg->I2C_CR2 |= (1<<11); //enable dma request
+	I2C_reg->I2C_CR2 |= (1<<11); //enable dma request
+
+	enableDMA(&(dma1->S4));
+		enableDMA(&(dma1->S5));
 
 	configureI2C(I2C_reg);
 	configureI2C(I2C3_reg);
 
 
 
-	enableDMA(dma1);
-
-
-	a = dma1->S4.CR;
-
 
 			generateStart(I2C3_reg);
 			sendAddress(I2C3_reg, I2C1_OWNADDRESS, ADDRESS_7_BIT_MODE, MASTER_TRANSMIT);
 			//while(status1(I2C3_reg, TxE) == 0);
 
-			a = dma1->LISR;
+		/*	a = dma1->LISR;
 			b = dma1->HISR;
 			c = I2C3_reg->I2C_DR;
 			d = I2C_reg->I2C_DR;
-			a = dma1->LISR;
-			b = dma1->HISR;
-			c = I2C3_reg->I2C_DR;
-			d = I2C_reg->I2C_DR;
+			e = I2C3_reg->I2C_SR1;
+			f = I2C3_reg->I2C_SR1;
+			checkEvent(dma1,5);
+			checkEvent(dma1,4);
+			checkEvent(dma1,10);
+			checkEvent(dma1,11);*/
+			while(1){
 
-			i2cStop(I2C3_reg);
+				e = I2C3_reg->I2C_SR1;
+				e = I2C3_reg->I2C_SR2;
+				f = I2C_reg->I2C_SR1;
+				f = I2C_reg->I2C_SR2;
+				data = I2C_reg->I2C_DR;
+			}
+	//		i2cStop(I2C3_reg);
 
 /*
 			a = dma1->LISR;

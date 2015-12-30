@@ -116,8 +116,10 @@ typedef enum {FAILED = 0,
 
 void configDMA(DMA_reg *dma, int channel, int direction);
 void DMA_memcpy8(DMA_reg *dma, uint32_t pDstAddr, uint32_t pSrcAddr, unsigned int uSize );
-void enableDMA(DMA_reg *dma);
-void DMA_interruptTransfer(DMA_reg *dma);
-
+void enableDMA(Stream_t *stream);
+void DMA_interruptTransfer(Stream_t *stream);
+void configDMAstream(Stream_t *stream, int channel, int direction);
+void connectDMAnI2C(Stream_t *stream, uint32_t mAddr, uint32_t pAddr, int numOfData);
+void checkEvent(DMA_reg *dma, int flag);
 
 #endif	//__DMA_H__
