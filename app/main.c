@@ -8,7 +8,7 @@
 
 #define I2C1_OWNADDRESS		0x10
 
-uint8_t buffer[] = "ABC";
+uint8_t transmitBuffer[] = "HELLO";
 uint8_t receiveBuffer[100];
 
 void I2C1_EV_IRQHandler(void){
@@ -44,6 +44,7 @@ void DMA1_Stream4_IRQHandler(void){
 		dma1->HIFCR |= (1<<5);
 		dma1->HIFCR |= (1<<4);
 		flag = dma1->HISR;
+		i2cStop(I2C3_reg);
 	}
 
 }
@@ -60,7 +61,7 @@ void DMA1_Stream5_IRQHandler(void){
 		dma1->HIFCR |= (1<<11);
 		dma1->HIFCR |= (1<<10);
 		data = I2C_reg->I2C_DR;
-		//i2cStop(I2C3_reg);
+		i2cStop(I2C3_reg);
 	}
 
 }
@@ -76,7 +77,7 @@ int main(void){
 
 //	HAL_NVIC_EnableIRQ(I2C1_EV_IRQn);
 //	HAL_NVIC_EnableIRQ(DMA1_Stream4_IRQn);
-//	HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+	HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
 //GPIO_NO_PULL_UP_DOWN GPIO_PULL_UP
 
 	configurePin(GPIO_MODE_ALTFUNC, PIN_6, PORTB, GPIO_NO_PULL_UP_DOWN); //PB6 as SCL for I2C1
@@ -91,12 +92,12 @@ int main(void){
 	b = dma1->S4.CR;
 	a = dma1->S5.CR;
 
-	DMA_interruptTransfer(&(dma1->S4));
-	DMA_interruptTransfer(&(dma1->S5));
+//	DMA_interruptTransfer(&(dma1->S4));
+//	DMA_interruptTransfer(&(dma1->S5));
 
 
-	connectDMAnI2C(&(dma1->S4), buffer, &(I2C3_reg->I2C_DR), 3);
-	connectDMAnI2C(&(dma1->S5), receiveBuffer, &(I2C_reg->I2C_DR), 3);
+	connectDMAnI2C(&(dma1->S4), transmitBuffer, &(I2C3_reg->I2C_DR), 5);
+	connectDMAnI2C(&(dma1->S5), receiveBuffer, &(I2C_reg->I2C_DR), 5);
 
 	unresetEnableI2cClock();
 
@@ -111,7 +112,7 @@ int main(void){
 	I2C_reg->I2C_CR2 |= (1<<11); //enable dma request
 
 	enableDMA(&(dma1->S4));
-		enableDMA(&(dma1->S5));
+	enableDMA(&(dma1->S5));
 
 	configureI2C(I2C_reg);
 	configureI2C(I2C3_reg);
@@ -139,7 +140,7 @@ int main(void){
 				e = I2C3_reg->I2C_SR2;
 				f = I2C_reg->I2C_SR1;
 				f = I2C_reg->I2C_SR2;
-				data = I2C_reg->I2C_DR;
+
 			}
 	//		i2cStop(I2C3_reg);
 
