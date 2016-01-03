@@ -31,14 +31,6 @@ struct DMA_Type{
 #define dma2   ((DMA_reg*)0x40026400)
 
 
-
-
-
-typedef enum {FAILED = 0,
-			PASSED = !FAILED
-			} TestStatus;
-
-
 #define channel0	0
 #define channel1	1
 #define channel2	2
@@ -52,9 +44,9 @@ typedef enum {FAILED = 0,
 #define M2P	1
 #define M2M	2
 
-#define Priority_Low		0
+#define Priority_Low		  0
 #define Priority_Medium		1
-#define Priority_High		2
+#define Priority_High		  2
 #define Priority_VeryHigh	3
 
 #define DMA_PeripheralInc_Enable	1
@@ -64,34 +56,33 @@ typedef enum {FAILED = 0,
 #define DMA_MemoryInc_Disable		0
 
 #define DMA_MemoryBurst_Single	0
-#define DMA_MemoryBurst_Incr4	1
-#define DMA_MemoryBurst_Incr8	2
+#define DMA_MemoryBurst_Incr4	  1
+#define DMA_MemoryBurst_Incr8	  2
 #define DMA_MemoryBurst_Incr16	3
 
 #define DMA_PeripheralBurst_Single	0
-#define DMA_PeripheralBurst_Incr4	1
-#define DMA_PeripheralBurst_Incr8	2
+#define DMA_PeripheralBurst_Incr4	  1
+#define DMA_PeripheralBurst_Incr8	  2
 #define DMA_PeripheralBurst_Incr16	3
 
 
-
-#define DMA_MemoryDataSize_byte 	0
+#define DMA_MemoryDataSize_byte 	  0
 #define DMA_MemoryDataSize_halfword 1
-#define DMA_MemoryDataSize_Word 	2
+#define DMA_MemoryDataSize_Word 	  2
 #define DMA_MemoryDataSize_reserved 3
 
-#define DMA_PeripheralDataSize_byte		0
+#define DMA_PeripheralDataSize_byte		  0
 #define DMA_PeripheralDataSize_halfword	1
-#define DMA_PeripheralDataSize_Word 	2
+#define DMA_PeripheralDataSize_Word 	  2
 #define DMA_PeripheralDataSize_reserved	3
 
 #define TC_interrupt_disabled 0
 #define TC_interrupt_enabled  1
 
-#define Quater_full_FIFO		0
-#define Half_full_FIFO			1
+#define Quater_full_FIFO		    0
+#define Half_full_FIFO			    1
 #define	ThreeperFour_full_FIFO	2
-#define Full_FIFO				3
+#define Full_FIFO				        3
 
 #define FTH		0
 
@@ -114,10 +105,8 @@ typedef enum {FAILED = 0,
 #define ARRAYSIZE 800
 #define DMA_STREAM_IRQHANDLER    DMA2_Stream0_IRQHandler
 
-void configDMA(DMA_reg *dma, int channel, int direction);
-void DMA_memcpy8(DMA_reg *dma, uint32_t pDstAddr, uint32_t pSrcAddr, unsigned int uSize );
+
 void enableDMA(Stream_t *stream);
-void DMA_interruptTransfer(Stream_t *stream);
 void configDMAstream(Stream_t *stream, int channel, int direction);
 void connectDMAnI2C(Stream_t *stream, uint32_t mAddr, uint32_t pAddr, int numOfData);
 void checkEvent(DMA_reg *dma, int flag);

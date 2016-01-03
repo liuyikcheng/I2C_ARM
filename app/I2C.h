@@ -29,22 +29,22 @@ struct I2C_t{
 #define I2C3_reg	((I2C_REG *)I2C3_REG_ADDRESS)
 
 /********** control register 1 **********/
-#define PE			0
-#define SMBUS		1
-//RESERVED			2
+#define PE			  0
+#define SMBUS		  1
+//RESERVED			  2
 #define SMBTYPE		3
-#define ENARP		4
-#define	ENPEC		5
-#define ENGC		6
+#define ENARP		  4
+#define	ENPEC		  5
+#define ENGC		  6
 #define NOSTRETCH	7
-#define START		8
-#define STOP		9
-#define ACK			10
-#define POS			11
-#define PEC			12
-#define ALERT		13
-//RESERVED			14
-#define SWRST		15
+#define START		  8
+#define STOP		  9
+#define ACK			  10
+#define POS			  11
+#define PEC			  12
+#define ALERT		  13
+//RESERVED			  14
+#define SWRST		  15
 
 /********** control register 2 **********/
 #define ITERREN		8
@@ -68,6 +68,11 @@ struct I2C_t{
 #define	BUSY	1
 #define TRA		2
 //RESERVED		3
+
+/********** Clock Control Register************/
+#define CCR   0
+#define DUTY  14
+#define FS   15
 
 #define	MASTER_TRANSMIT		0
 #define MASTER_RECEIVE		1
@@ -97,5 +102,6 @@ int status1(I2C_REG *i2c_reg, int bit);
 
 int status2(I2C_REG *i2c_reg, int bit);
 
+void dmaRequestEnable(I2C_REG *i2c_reg);
 
 #endif // __I2C_H__

@@ -2,44 +2,30 @@
 
 void configureI2C(I2C_REG *i2c_reg){
 	int a;
-	i2c_reg->I2C_CR1 &= ~(1<<15);  	//	unreset
+	i2c_reg->I2C_CR1 &= ~(1<<SWRST);  	//	unreset
 
-	i2c_reg->I2C_CR1 &= ~(1<<7);	//	clock stretch enable
+	i2c_reg->I2C_CR1 &= ~(1<<NOSTRETCH);	//	clock stretch enable
 
 	a = i2c_reg->I2C_CR1;
-/*
-	i2c_reg->I2C_OAR1 &= ~(1<<15);	//	7-bit address
-	i2c_reg->I2C_OAR1 &= ~(127<<1);
-	i2c_reg->I2C_OAR1 |= (OwnAddress<<1); // set own address
-*/
+
 	i2c_reg->I2C_CR2 &= ~(63);
 	i2c_reg->I2C_CR2 |= (0x2);		//	set clock freq to 4MHz
-//	i2c_reg->I2C_CR2 |= (1<<10);  	// ITBUFEN buffer interrupt enable
-//	i2c_reg->I2C_CR2 |= (1<<9);  	// ITEVTEN event interrupt enable
-//	i2c_reg->I2C_CR2 |= (1<<8);  	// ITERREN error interrupt enable
+//	i2c_reg->I2C_CR2 |= (1<<ITBUFEN);  	// ITBUFEN buffer interrupt enable
+	i2c_reg->I2C_CR2 |= (1<<ITEVTEN);  	// ITEVTEN event interrupt enable
+	i2c_reg->I2C_CR2 |= (1<<ITERREN);  	// ITERREN error interrupt enable
 
-	//i2c_reg->I2C_CR2 |= (1<<11);	// dma enable
 
-	i2c_reg->I2C_CCR &= ~(1<<15);	// standard mode
-	i2c_reg->I2C_CCR &= ~(4095);
+	i2c_reg->I2C_CCR &= ~(1<<FS);	// standard mode
+	i2c_reg->I2C_CCR &= ~(4095<<CCR);
 	i2c_reg->I2C_CCR |= 0x100;		// Clock control register in Fm/Sm mode as
 
-	i2c_reg->I2C_TRISE &= ~(0x3F);
-	i2c_reg->I2C_TRISE |= 0x2;
-
-	i2c_reg->I2C_FLTR |= (1<<4);	// enable analog filter
-	i2c_reg->I2C_FLTR &= ~(15);
-	i2c_reg->I2C_FLTR |= (1);
-
-	i2c_reg->I2C_CR1 |= 1;		//	peripheral enable
-	i2c_reg->I2C_CR1 |= (1<<10);	//	acknowledge enable
-	a = i2c_reg->I2C_CR1;
-	a = i2c_reg->I2C_OAR1;
+	i2c_reg->I2C_CR1 |= (1<<ACK);	//	acknowledge enable
+	i2c_reg->I2C_CR1 |= (1<<PE);		//	peripheral enable
 
 }
 
 void configureI2C_DMAenable(I2C_REG *i2c_reg){
-	i2c_reg->I2C_CR2 |= (1<<11);
+	i2c_reg->I2C_CR2 |= (1<<DMAEN);
 }
 
 void configureI2cAddress(I2C_REG *i2c_reg, int ownAddress, int addr10Bit){
@@ -78,14 +64,9 @@ int status2(I2C_REG *i2c_reg, int bit){
 
 //To write data to the data register of I2C
 void i2cWriteData(int data, I2C_REG *i2c_reg){
+  
 	while(status1(i2c_reg, TxE) == 0);
-//	int c = I2C_reg->I2C_SR1;
-//	int d = I2C_reg->I2C_SR1;
 	i2c_reg->I2C_DR = data;
-//	int a = i2c_reg->I2C_SR1;
-//	int b = i2c_reg->I2C_SR2;
-//	c = I2C_reg->I2C_SR1;
-//	d = I2C_reg->I2C_SR2;
 }
 
 uint8_t i2cReadData(I2C_REG *i2c_reg){
@@ -125,23 +106,20 @@ void sendAddress(I2C_REG *i2c_reg, int address, int addressMode, int rw){
 		while(status1(i2c_reg, ADDR) == 0);
 
 		if(rw == MASTER_RECEIVE){
-
+      
+      while(status1(I2C_reg,ADDR) == 0);
+      generateStart(i2c_reg);
+			sendHeaderForReceive(i2c_reg, I2C1_OWNADDRESS);
+      
 		}
 	}
 	else{
 		int slaveAddress = ((address<<1)|rw);
-		if(status1(i2c_reg, ADDR) == 1){
-			i2c_reg->I2C_DR = 0x69;
-			uint32_t a = i2c_reg->I2C_SR1;
-			uint32_t b = i2c_reg->I2C_SR2;
-			uint32_t c = I2C_reg->I2C_SR1;
-			uint32_t d = I2C_reg->I2C_SR2;
-		}
-		else {
-			i2c_reg->I2C_DR = slaveAddress;
-			//while(status1(i2c_reg, BTF) == 0);
-		}
-
+		uint32_t a = i2c_reg->I2C_SR1;
+		uint32_t b = i2c_reg->I2C_SR2;
+		uint32_t c = I2C_reg->I2C_SR1;
+		uint32_t d = I2C_reg->I2C_SR2;
+    i2c_reg->I2C_DR = slaveAddress;
 
 	}
 }
@@ -156,4 +134,7 @@ void i2cStop(I2C_REG *i2c_reg){
 	i2c_reg->I2C_CR1 |= (1<<9);
 }
 
+void dmaRequestEnable(I2C_REG *i2c_reg){
+  i2c_reg->I2C_CR2 |= (1<<11);
+}
 
